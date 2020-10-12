@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native'
+import { CellTheme } from '../../themes/components'
 
 const styles = StyleSheet.create({
   container: {
@@ -7,14 +8,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     height: 60,
-    borderBottomColor: '#BFBFBF',
+    borderBottomColor: CellTheme.bottom_border_line_color,
     borderBottomWidth: StyleSheet.hairlineWidth
   },
   commonItemArrow: {
     width: 9,
     height: 14,
     resizeMode: 'contain',
-    // marginRight: 10,
     marginLeft: 1
   },
   commonRow: {
@@ -24,22 +24,27 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end'
   },
   leftTopText: {
-    color: '#5C5C5C',
+    color: CellTheme.left_top_text_color,
     fontSize: 16
   },
   leftBottomText: {
-    color: '#CFA948',
+    color: CellTheme.left_bottom_text_color,
     fontSize: 11,
     marginTop: 6
   },
   rightTopText: {
-    color: '#000000',
+    color: CellTheme.right_top_text_color,
     fontSize: 16
   },
   rightBottomText: {
-    color: '#CFA948',
+    color: CellTheme.right_bottom_text_color,
     fontSize: 11,
     marginTop: 6
+  },
+  arrow: {
+    width: 20,
+    height: 20,
+    tintColor: CellTheme.arrow_color
   },
   commonItemImage: {
     width: 20,

@@ -1,16 +1,28 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
-import type { TextStyle } from 'react-native/Libraries/StyleSheet/StyleSheet'
+import { View, Text, TouchableOpacity, Image } from 'react-native'
+import type { ImageStyle, TextStyle, ViewStyle } from 'react-native/Libraries/StyleSheet/StyleSheet'
 import styles from './styles'
+import { CellTheme } from '../../themes/components'
 
 type T = (() => React.ReactElement) | string | React.ReactElement
 interface Props {
-  onPress: Function;
-  title: string;
+  onPress?: Function;
+
+  containerStyle?: ViewStyle;
+
   leftTop?: T;
   leftTopStyle?: TextStyle;
   leftBottom?: T;
   leftBottomStyle?: TextStyle;
+
+  rightTop?: T;
+  rightTopStyle?: TextStyle;
+  rightBottom?: T;
+  rightBottomStyle?: TextStyle;
+
+  arrow?: boolean;
+  arrowColor?: string;
+  arrowStyle?: ImageStyle;
 }
 
 export default class Cell extends Component<Props> {
@@ -29,12 +41,11 @@ export default class Cell extends Component<Props> {
           <View>{this.renderLeftTop()}</View>
           {this.renderLeftBottom()}
         </View>
-        {/*<View style={styles.commonRow}>*/}
-        {/*  <View style={[{ marginRight: 10, flex: 1, alignItems: 'flex-end' }]}>*/}
-        {/*    {this.renderRightTop()}*/}
-        {/*    {this.renderRightBottom()}*/}
-        {/*  </View>*/}
-        {/*</View>*/}
+        <View style={[{ marginRight: 4, flex: 1, alignItems: 'flex-end' }]}>
+          {this.renderRightTop()}
+          {this.renderRightBottom()}
+        </View>
+        {this.renderArrow()}
       </TouchableOpacity>
     )
   }
@@ -103,5 +114,18 @@ export default class Cell extends Component<Props> {
     }
 
     return _rightBottom
+  }
+
+  renderArrow() {
+    let { arrow, arrowColor, arrowStyle } = this.props
+
+    if (!arrow) return null
+
+    return (
+      <Image
+        source={CellTheme.arrow_right}
+        style={[styles.arrow, arrowStyle, arrowColor && { tintColor: arrowColor }]}
+      />
+    )
   }
 }
