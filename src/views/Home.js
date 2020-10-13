@@ -1,19 +1,37 @@
 import React, { Component } from 'react'
-import { StatusBar, View } from 'react-native'
-import { Cell } from '../component-path'
+import { StatusBar, ScrollView } from 'react-native'
+import {Button, Cell} from '../component-path';
 
 export default class HomeScreen extends Component {
   static navigationOptions = {
     title: 'Home'
   }
 
+  state = {
+    selected: false
+  }
+
   render() {
     return (
-      <View style={{ flex: 1 }}>
+      <ScrollView style={{ flex: 1 }}>
         <StatusBar barStyle={'dark-content'} />
-        <Cell leftTop={'测试1'} leftBottom={'测试2'} containerStyle={{ height: 70 }} arrow={true} arrowColor={'red'}/>
-        <Cell leftTop={'测试2'} rightTop={'拉丝款捷达'} arrow={true} />
-      </View>
+        <Cell
+          leftTop={'测试1'}
+          rightTop={'爱唠嗑大家萨拉'}
+          containerStyle={{ height: 90 }}
+          icon={'arrow'}
+          iconColor={'red'}
+        />
+        <Cell
+          leftTop={'测试2'}
+          icon={'round'}
+          selected={this.state.selected}
+          onPress={() => {
+            this.setState({ selected: !this.state.selected })
+          }}
+        />
+        <Button />
+      </ScrollView>
     )
   }
 }

@@ -7,79 +7,70 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    height: 60,
-    borderBottomColor: CellTheme.bottom_border_line_color,
-    borderBottomWidth: StyleSheet.hairlineWidth
+    height: CellTheme.cell_height
   },
-  commonItemArrow: {
-    width: 9,
-    height: 14,
-    resizeMode: 'contain',
-    marginLeft: 1
-  },
+
   commonRow: {
     flexDirection: 'row',
-    alignItems: 'center',
-    flex: 1,
-    justifyContent: 'flex-end'
+    alignItems: 'center'
   },
+
   leftTopText: {
     color: CellTheme.left_top_text_color,
-    fontSize: 16
+    fontSize: CellTheme.left_top_text_font_size,
+    lineHeight: CellTheme.left_top_text_line_height
   },
+
   leftBottomText: {
     color: CellTheme.left_bottom_text_color,
-    fontSize: 11,
-    marginTop: 6
+    fontSize: CellTheme.left_bottom_text_font_size,
+    lineHeight: CellTheme.left_bottom_text_line_height
   },
+
   rightTopText: {
     color: CellTheme.right_top_text_color,
-    fontSize: 16
+    fontSize: CellTheme.right_top_text_font_size,
+    lineHeight: CellTheme.right_top_text_line_height
   },
+
   rightBottomText: {
     color: CellTheme.right_bottom_text_color,
-    fontSize: 11,
-    marginTop: 6
+    fontSize: CellTheme.right_bottom_text_font_size,
+    lineHeight: CellTheme.right_bottom_text_line_height
   },
+
   arrow: {
-    width: 20,
-    height: 20,
-    tintColor: CellTheme.arrow_color
+    width: CellTheme.arrow_width,
+    height: CellTheme.arrow_height
   },
-  commonItemImage: {
-    width: 20,
-    height: 46 / 3,
-    marginLeft: -5,
-    marginRight: 10
-  },
-  trueIcon: {
-    width: 16,
-    height: 11
-  },
-  falseIcon: {
-    width: 11,
-    height: 11
-  },
-  yesContainer: {
-    width: 22,
-    height: 22,
-    borderRadius: 11,
+
+  unselected: {
+    width: CellTheme.round_width,
+    height: CellTheme.round_height,
+    borderRadius: CellTheme.round_height / 2,
     overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: CellTheme.unselected_color
+  },
+  selected: {
+    width: CellTheme.round_width,
+    height: CellTheme.round_height,
+    borderRadius: CellTheme.round_height / 2,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#EBC752'
+    overflow: 'hidden',
+    backgroundColor: CellTheme.selected_color
   },
   yes: {
-    width: 12,
-    height: 7
+    width: CellTheme.yes_width,
+    height: CellTheme.yes_height
   },
-  noContainer: {
-    width: 22,
-    height: 22,
-    borderRadius: 11,
-    borderColor: '#A3A3A3',
-    borderWidth: StyleSheet.hairlineWidth,
-    overflow: 'hidden'
+  bottomBorder: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: CellTheme.bottom_border_line_color
   }
 })
 
