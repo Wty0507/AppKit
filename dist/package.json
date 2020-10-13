@@ -1,6 +1,6 @@
 {
   "name": "react-native-app-kit",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "## UIKit",
   "main": "index.js",
   "scripts": {
@@ -15,6 +15,7 @@
   "author": "Zoey",
   "license": "ISC",
   "dependencies": {
+    "react-native-linear-gradient": "2.4.0"
   },
   "directories": {
     "example": "example"

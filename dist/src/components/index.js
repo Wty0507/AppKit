@@ -1,2 +1,3 @@
 import Cell from './Cell/cell'
-export { Cell }
+import Button from './Button/button'
+export { Cell, Button }

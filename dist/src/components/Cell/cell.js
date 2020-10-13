@@ -1,31 +1,80 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableOpacity, Image } from 'react-native'
+import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native'
 import type { ImageStyle, TextStyle, ViewStyle } from 'react-native/Libraries/StyleSheet/StyleSheet'
 import styles from './styles'
 import { CellTheme } from '../../themes/components'
 
 type T = (() => React.ReactElement) | string | React.ReactElement
+
 interface Props {
+  /** @onPress 点击事件 */
   onPress?: Function;
 
+  /**  @containerStyle Cell最外层样式 */
   containerStyle?: ViewStyle;
+  paddingLeft?: number;
+  paddingRight?: number;
+  bottomBorder: boolean;
+  bottomBorderColor: string;
 
+  /**
+   * @leftTop 左侧顶部内容 (() => React.ReactElement) | string | React.ReactElement
+   * @leftTopStyle 左侧顶部内容为'string'类型时 可使用的样式
+   * @leftBottom 左侧底部内容 (() => React.ReactElement) | string | React.ReactElement
+   * @leftBottomStyle 左侧底部内容为'string'类型时 可使用的样式
+   */
   leftTop?: T;
   leftTopStyle?: TextStyle;
   leftBottom?: T;
   leftBottomStyle?: TextStyle;
 
+  /**
+   * @rightTop 右侧顶部内容 (() => React.ReactElement) | string | React.ReactElement
+   * @rightTopStyle 右侧顶部内容为'string'类型时 可使用的样式
+   * @rightBottom 右侧底部内容 (() => React.ReactElement) | string | React.ReactElement
+   * @rightBottomStyle 右侧底部内容为'string'类型时 可使用的样式
+   */
   rightTop?: T;
   rightTopStyle?: TextStyle;
   rightBottom?: T;
   rightBottomStyle?: TextStyle;
 
-  arrow?: boolean;
-  arrowColor?: string;
+  /**
+   * @icon 右边icon类型
+   * none 没有
+   * arrow 指向右边箭头
+   * round 选择圆圈
+   */
+  icon?: 'none' | 'arrow' | 'round';
+
+  /**
+   * icon为 'arrow' 时
+   * @arrowStyle 右侧箭头图片样式
+   * @arrowColor 右侧箭头颜色 优先级最高
+   */
   arrowStyle?: ImageStyle;
+  arrowColor?: string;
+
+  /**
+   * icon为 'round' 时
+   * @selected 是否选中
+   * @unselectedColor 未选中时 圆圈的颜色
+   * @selectedColor 选中时 背景颜色
+   * @selectedIconColor 选中时 中间icon的颜色
+   */
+  selected?: boolean;
+  unselectedColor?: string;
+  selectedColor?: string;
+  selectedIconColor?: string;
 }
 
 export default class Cell extends Component<Props> {
+  static defaultProps = {
+    icon: 'none',
+    paddingLeft: 30,
+    paddingRight: 30,
+    bottomBorder: true
+  }
   render() {
     return (
       <TouchableOpacity
@@ -35,17 +84,24 @@ export default class Cell extends Component<Props> {
             this.props.onPress()
           }
         }}
-        style={[styles.container, this.props.containerStyle]}
+        style={[
+          styles.container,
+          this.props.containerStyle,
+          { paddingLeft: this.props.paddingLeft, paddingRight: this.props.paddingRight }
+        ]}
       >
+        {/* 左侧内容 */}
         <View style={{ marginRight: 10 }}>
-          <View>{this.renderLeftTop()}</View>
+          {this.renderLeftTop()}
           {this.renderLeftBottom()}
         </View>
-        <View style={[{ marginRight: 4, flex: 1, alignItems: 'flex-end' }]}>
+        {/* 右侧内容 */}
+        <View style={[{ flex: 1, alignItems: 'flex-end' }]}>
           {this.renderRightTop()}
           {this.renderRightBottom()}
         </View>
-        {this.renderArrow()}
+        {this.renderIcon()}
+        {this.renderBottomBorder()}
       </TouchableOpacity>
     )
   }
@@ -116,15 +172,74 @@ export default class Cell extends Component<Props> {
     return _rightBottom
   }
 
+  renderIcon() {
+    let { icon } = this.props
+
+    switch (icon) {
+      case 'arrow':
+        return this.renderArrow()
+      case 'round':
+        return this.renderRound()
+      default:
+        return null
+    }
+  }
+
   renderArrow() {
-    let { arrow, arrowColor, arrowStyle } = this.props
-
-    if (!arrow) return null
-
+    let { arrowStyle, arrowColor } = this.props
     return (
       <Image
         source={CellTheme.arrow_right}
-        style={[styles.arrow, arrowStyle, arrowColor && { tintColor: arrowColor }]}
+        style={[
+          { marginLeft: 4, marginRight: -6 },
+          styles.arrow,
+          arrowStyle,
+          arrowColor && { tintColor: arrowColor }
+        ]}
+      />
+    )
+  }
+
+  renderRound() {
+    let { selected, unselectedColor, selectedColor, selectedIconColor } = this.props
+    if (!selected) {
+      return (
+        <View
+          style={[
+            { marginLeft: 4 },
+            styles.unselected,
+            unselectedColor && { borderColor: unselectedColor }
+          ]}
+        />
+      )
+    } else {
+      return (
+        <View
+          style={[
+            { marginLeft: 4 },
+            styles.selected,
+            selectedColor && { backgroundColor: selectedColor }
+          ]}
+        >
+          <Image
+            source={CellTheme.yes_icon}
+            style={[styles.yes, selectedIconColor && { tintColor: selectedIconColor }]}
+          />
+        </View>
+      )
+    }
+  }
+
+  renderBottomBorder() {
+    const { bottomBorder, bottomBorderColor } = this.props
+    if (!bottomBorder) return null
+    return (
+      <View
+        style={[
+          styles.bottomBorder,
+          bottomBorderColor && { backgroundColor: bottomBorderColor },
+          { left: this.props.paddingLeft }
+        ]}
       />
     )
   }
