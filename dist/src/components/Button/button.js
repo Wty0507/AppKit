@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native'
-import type { ImageStyle, TextStyle, ViewStyle } from 'react-native/Libraries/StyleSheet/StyleSheet'
-import styles from './styles'
-import { CellTheme } from '../../themes/components'
+// import type { ImageStyle, TextStyle, ViewStyle } from 'react-native/Libraries/StyleSheet/StyleSheet'
+// import styles from './styles'
+// import { CellTheme } from '../../themes/components'
 import LinearGradient from 'react-native-linear-gradient'
 
 type T = (() => React.ReactElement) | string | React.ReactElement

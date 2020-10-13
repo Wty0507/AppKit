@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { StatusBar, ScrollView } from 'react-native'
-import {Button, Cell} from '../component-path';
+import { Button, Cell } from '../component-path';
 
 export default class HomeScreen extends Component {
   static navigationOptions = {
